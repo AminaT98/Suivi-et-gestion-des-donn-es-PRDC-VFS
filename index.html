@@ -5,6 +5,8 @@
 <title>Tableau de bord PRDC-VFS</title>
 <link href="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.css" rel="stylesheet">
 <link rel="stylesheet" href="styles.css"></head>
+ <link rel="shortcut icon" href="logo-projet.png" type="image/x-icon">
+
 <body>
 <header><div class="head">
  <div class="brand"><div class="brandtext"><div class="eyebrow">Suivi et gestion des données · PRDC-VFS</div><h1 class="title">Tableau de bord du projet</h1><p class="subtitle">Infrastructures · Interconnexion transfrontalière · Cohésion sociale</p></div></div>
@@ -24,13 +26,13 @@
   <select id="wilaya"><option value="">Toutes les wilayas</option></select>
   <select id="type"><option value="">Tous les types</option></select>
  </div>
- <div class="yearbar"><div class="year-caption">ANNÉE D’ACHÈVEMENT DES TRAVAUX</div><div id="year-buttons" class="year-buttons"><button type="button" class="year-btn" data-year="2025" aria-pressed="false">2025</button><button type="button" class="year-btn" data-year="2026" aria-pressed="false">2026</button></div><p class="folder-help">Cliquez sur 2025 ou 2026 pour filtrer selon la date d’achèvement des infrastructures. Pour les autres onglets, la date de réalisation ou la date pertinente du formulaire est utilisée.</p><select id="year" class="hidden" aria-label="Filtrer par année d’achèvement ou de réalisation"><option value="">Toutes les années</option><option value="2025">2025</option><option value="2026">2026</option></select></div>
+ <div class="yearbar"><div class="year-caption">ANNÉE D’ACHÈVEMENT / DE RÉALISATION</div><div id="year-buttons" class="year-buttons"><button type="button" class="year-btn" data-year="2025" aria-pressed="false">2025</button><button type="button" class="year-btn" data-year="2026" aria-pressed="false">2026</button><button type="button" class="year-btn in-progress" data-year="En cours" aria-pressed="false">En cours</button></div><p class="folder-help">Filtrez par date d’achèvement des infrastructures ou par date de réalisation de l’activité. Les dates vides sont classées « En cours » si la colonne de date existe ; si elle n’existe pas, les enregistrements sont classés en 2025.</p><select id="year" class="hidden" aria-label="Filtrer par année d’achèvement ou de réalisation"><option value="">Toutes les années</option><option value="2025">2025</option><option value="2026">2026</option><option value="En cours">En cours</option></select></div>
  <div id="load-status" class="load-status" role="status" aria-live="polite">Chargement des fichiers Excel…</div>
 </section>
 <section class="stats" id="stats"></section>
 <section class="layout">
- <div class="panel"><div class="panelhead"><h2 class="paneltitle">Carte géographique</h2><span class="muted" id="map-count"></span></div><div id="map"></div><div class="mapfoot">Fond cartographique : OpenFreeMap · © OpenMapTiles · © OpenStreetMap. Les marqueurs sont regroupés à petite échelle. Une connexion Internet est nécessaire pour afficher la carte et les photos Kobo.</div></div>
- <div class="panel"><div class="panelhead"><h2 class="paneltitle">Détails de l’élément sélectionné</h2><span class="muted" id="detail-status">Cliquez sur un point de la carte</span></div><div class="details" id="details"><div class="empty">Cliquez sur un point de la carte pour afficher la date retenue, le type ou l’activité, la localisation et les photos disponibles.</div></div></div>
+ <div class="panel"><div class="panelhead"><h2 class="paneltitle">Carte géographique</h2><span class="muted" id="map-count"></span></div><div id="map"></div><div class="mapfoot">Fond cartographique : OpenFreeMap · © OpenMapTiles · © OpenStreetMap. Chaque point représente un projet géolocalisé. Une connexion Internet est nécessaire pour afficher la carte et les photos Kobo.</div></div>
+ <div class="panel"><div class="panelhead"><h2 class="paneltitle" id="detail-title">Nom / désignation du projet</h2><span class="muted" id="detail-status">Cliquez sur un point de la carte</span></div><div class="details" id="details"><div class="empty">Cliquez sur un point de la carte pour afficher la date retenue, le type ou l’activité, la localisation et les photos disponibles.</div></div></div>
 </section>
 </main><footer>PRDC-VFS · Tableau de bord de consultation. Les fichiers Excel du même dossier sont chargés automatiquement lorsque la page est ouverte via HTTP(S).</footer>
 <script src="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.js"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
