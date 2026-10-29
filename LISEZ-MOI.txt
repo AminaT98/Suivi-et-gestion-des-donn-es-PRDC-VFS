@@ -1,0 +1,28 @@
+PRDC-VFS — Tableau de bord
+
+Contenu du dossier
+- PRDC_VFS_Tableau_de_bord.html : page du tableau de bord
+- styles.css : mise en forme
+- app.js : filtres, chargement des classeurs Excel, carte et fiches détaillées
+- Infrastructures.xlsx
+- Interconnexion_transfrontalière.xlsx
+- Activités_de_cohésion_sociale.xlsx
+
+Utilisation
+1. Garder le HTML, le CSS, le JavaScript, les trois fichiers Excel et les trois logos dans le même dossier.
+2. Ouvrir le tableau de bord via une adresse HTTP/HTTPS pour que JavaScript charge automatiquement les fichiers Excel du même dossier. Le navigateur bloque cette lecture automatique lorsque le fichier HTML est ouvert directement par double-clic.
+3. Utiliser les onglets et filtres pour sélectionner les données.
+4. Cliquer sur un point de la carte pour afficher la fiche correspondante.
+
+Affichage des fiches
+La fiche affiche uniquement : Date retenue, Type / activité, Wilaya, Moughataa, Commune, Village/Localité et les photos disponibles. La liste « Enregistrements » a été supprimée. Les points GPS restent visibles sur la carte et peuvent être sélectionnés.
+
+Mise à jour des données
+Pour actualiser les données, remplacer les fichiers Excel par les nouveaux classeurs en conservant exactement les mêmes noms de fichiers.
+
+Logos attendus
+- logo-projet.png
+- logo-banque.png
+- logo-rim.png
+
+La carte, les bibliothèques JavaScript et les photos externes peuvent nécessiter une connexion Internet.
