@@ -1,28 +1,22 @@
-PRDC-VFS — Tableau de bord
+PRDC-VFS — TABLEAU DE BORD AVEC CARTE GPS
 
-Contenu du dossier
+CONTENU DU DOSSIER
 - PRDC_VFS_Tableau_de_bord.html : page du tableau de bord
-- styles.css : mise en forme
-- app.js : filtres, chargement des classeurs Excel, carte et fiches détaillées
+- styles.css : styles de l'interface
+- app.js : chargement des fichiers Excel, filtres, points GPS et fiches
 - Infrastructures.xlsx
 - Interconnexion_transfrontalière.xlsx
 - Activités_de_cohésion_sociale.xlsx
+- Ouvrir_PRDC_VFS.bat : ouvre le tableau de bord via un serveur local Python
+- Les trois logos doivent rester dans ce dossier : logo-projet.png, logo-banque.png, logo-rim.png
 
-Utilisation
-1. Garder le HTML, le CSS, le JavaScript, les trois fichiers Excel et les trois logos dans le même dossier.
-2. Ouvrir le tableau de bord via une adresse HTTP/HTTPS pour que JavaScript charge automatiquement les fichiers Excel du même dossier. Le navigateur bloque cette lecture automatique lorsque le fichier HTML est ouvert directement par double-clic.
-3. Utiliser les onglets et filtres pour sélectionner les données.
-4. Cliquer sur un point de la carte pour afficher la fiche correspondante.
+UTILISATION
+1. Extraire tous les fichiers dans un seul dossier.
+2. Garder les logos dans ce dossier.
+3. Double-cliquer sur Ouvrir_PRDC_VFS.bat.
+4. Le tableau de bord charge automatiquement les trois fichiers Excel depuis ce dossier.
+5. Chaque enregistrement ayant une latitude et une longitude valides apparaît sur la carte. Les points proches peuvent être regroupés en cercles numérotés ; cliquer sur le groupe zoome, puis cliquer sur un point ouvre la fiche du projet.
+6. Pour actualiser les données, remplacer les fichiers Excel en gardant exactement les mêmes noms, puis recharger la page du navigateur.
 
-Affichage des fiches
-La fiche affiche uniquement : Date retenue, Type / activité, Wilaya, Moughataa, Commune, Village/Localité et les photos disponibles. La liste « Enregistrements » a été supprimée. Les points GPS restent visibles sur la carte et peuvent être sélectionnés.
-
-Mise à jour des données
-Pour actualiser les données, remplacer les fichiers Excel par les nouveaux classeurs en conservant exactement les mêmes noms de fichiers.
-
-Logos attendus
-- logo-projet.png
-- logo-banque.png
-- logo-rim.png
-
-La carte, les bibliothèques JavaScript et les photos externes peuvent nécessiter une connexion Internet.
+IMPORTANT
+Le chargement automatique de fichiers Excel locaux n'est pas autorisé par les navigateurs quand on ouvre le HTML directement (file://). Le lanceur démarre un petit serveur local avec Python. Une connexion Internet est nécessaire pour les bibliothèques JavaScript et le fond de carte.
