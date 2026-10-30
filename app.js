@@ -9,6 +9,7 @@ function validGPS(r){if(r.lat===null||r.lat===undefined||r.lon===null||r.lon===u
 function niceDate(v){if(!v)return '—';const d=new Date(v);return isNaN(d)?String(v):d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'})}
 function esc(v){return String(v??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function displayType(r){return r.type||r.name||labels[r.dataset]}
+function isTechnicalField(key){const k=String(key??'').trim().toLocaleLowerCase('fr');return k==='start'||k==='end'||k==='_index'||k.startsWith('_')||k.startsWith('meta/')||k.includes('coordonnée gps')||k.includes('coordonne gps')||k.includes('latitude')&&k.includes('gps')||k.includes('longitude')&&k.includes('gps')||k.includes('altitude')&&k.includes('gps')||k.includes('precision')&&k.includes('gps')||k.includes('/');}
 function getFiltered(){const q=$('search').value.toLocaleLowerCase('fr'),y=$('year').value,w=$('wilaya').value,t=$('type').value;return allRecords().filter(r=>(active==='all'||r.dataset===active)&&(!q||[r.name,r.type,r.wilaya,r.moughataa,r.commune,r.village,...Object.values(r.fields||{})].join(' ').toLocaleLowerCase('fr').includes(q))&&(!y||yearFor(r)===y)&&(!w||r.wilaya===w)&&(!t||displayType(r)===t))}
 function refreshOptions(){const records=allRecords().filter(r=>active==='all'||r.dataset===active);const keep={wilaya:$('wilaya').value,type:$('type').value};for(const [id,key] of [['wilaya','wilaya'],['type',null]]){const vals=[...new Set(records.map(r=>key?r[key]:displayType(r)).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'fr'));const sel=$(id),first=id==='wilaya'?'Toutes les wilayas':'Tous les types';sel.innerHTML='<option value="">'+first+'</option>'+vals.map(v=>'<option>'+esc(v)+'</option>').join('');if(vals.includes(keep[id]))sel.value=keep[id]}}
 function renderStats(rs){const gps=rs.filter(validGPS).length,years=new Set(rs.map(yearFor).filter(y=>y!=='Non précisée'));const stats=[['Sous-projets',rs.length,'Dans la sélection actuelle'],['Avec coordonnées GPS',gps,rs.length?Math.round(gps/rs.length*100)+' % géolocalisés':'Aucune donnée'],['Années couvertes',years.size - 1,'Selon les dates disponibles'],['Formulaires',new Set(rs.map(r=>r.dataset)).size,'Types de formulaires présents']];$('stats').innerHTML=stats.map(x=>'<div class="stat"><div class="statlabel">'+x[0]+'</div><div class="num">'+x[1]+'</div><div class="hint">'+x[2]+'</div></div>').join('')}
@@ -31,7 +32,7 @@ function renderDetails(r){
  const photos=(r.photos||[]).filter(p=>p.url);
  if(photos.length){h+='<h3 class="photos-title">Photos</h3><div class="gallery">'+photos.map(p=>'<a href="'+esc(p.url)+'" target="_blank" rel="noopener" title="'+esc(p.name||'Photo')+'"><img loading="lazy" src="'+esc(p.url)+'" alt="'+esc(p.name||'Photo du projet')+'"></a>').join('')+'</div>'}
  else {h+='<div class="photos-empty">Aucune photo disponible pour cet élément.</div>'}
- const extraEntries=Object.entries(r.fields||{});
+ const extraEntries=Object.entries(r.fields||{}).filter(([k,v])=>!isTechnicalField(k)&&v!==null&&v!==undefined&&String(v).trim()!=='');
  if(extraEntries.length){
   h+='<button type="button" class="btn secondary see-more-btn" id="see-more-btn" aria-expanded="false">Voir plus de détails <span aria-hidden="true">＋</span></button>';
   h+='<div class="all-data hidden" id="all-data"><h3 class="photos-title">Toutes les données du sous-projet</h3><div class="fieldgrid">';
@@ -130,7 +131,7 @@ async function loadAllFixedFiles(){
  results.forEach((result,i)=>{if(result.status==='fulfilled')total+=result.value;else errors.push(jobs[i][0]+': '+(result.reason?.message||'erreur de lecture'))});
  render();
  if(errors.length){status.className='load-status error';status.textContent='Chargement incomplet. '+errors.join(' · ');}
- else{status.className='load-status success';status.textContent='Données actualisées depuis les fichiers Excel : '+total+' enregistrement(s). Remplacez simplement les classeurs Excel pour mettre à jour les données.';}
+ else{status.className='load-status success';status.textContent='Données actualisées depuis les fichiers Excel : '+total+' enregistrement(s).';}
 }
 render();
 initMap();
