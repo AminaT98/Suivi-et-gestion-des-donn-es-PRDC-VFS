@@ -21,8 +21,8 @@ function renderDetails(r){
  if(title)title.textContent=r.name||'Nom / désignation du projet';
  if(status)status.textContent=validGPS(r)?'Point GPS affiché sur la carte':'Coordonnées GPS non disponibles';
  const values=[
-  ['Date retenue',niceDate(dateFor(r))],
-  ['Type / activité',displayType(r)],
+  ["Date d’achèvement / Date de réalisation",niceDate(dateFor(r))],
+  ["Type d'infrastructure / Type d'activité",displayType(r)],
   ['Wilaya',r.wilaya||'—'],
   ['Moughataa',r.moughataa||'—'],
   ['Commune',r.commune||'—'],
